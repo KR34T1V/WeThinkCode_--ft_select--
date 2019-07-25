@@ -5,110 +5,79 @@
 #                                                     +:+ +:+         +:+      #
 #    By: cterblan <cterblan@student.wethinkcode>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/07/17 11:24:40 by cterblan          #+#    #+#              #
-#    Updated: 2018/09/25 10:49:25 by cterblan         ###   ########.fr        #
+#    Created: 2019/07/25 20:26:51 by cterblan          #+#    #+#              #
+#    Updated: 2019/07/25 22:28:40 by cterblan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ################################################################################
-#								NAME
-################################################################################
-AUTHOR := cterblan
-#AUTHOR NAME^^^
 
-NAME := ft_select
-#PROJECT OUTPUT FILE NAME ^^^
-################################################################################
-#								DIRECTORIES
-################################################################################
-INC_DIR := inc
-#INCLUDES DIRECTORY ^^^
-SRC_DIR := src
-#SOURCES DIRECTORY ^^^
-OBJ_DIR := obj
-#OBJECTS DIRECTORY ^^^
-LIB_DIR := lib
-#LIBRARY DIRECTORY ^^^
-################################################################################
-#								FILES
-################################################################################
-#SRC:= ft_function.c
-SRC :=	{FILES}
-#ADD SOURCE FILES HERE ^^^
-OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
-################################################################################
-#								LIBRARIES
-################################################################################
-#NAME_DIR := $(LIBDIR)/{library}
-LIBFT_DIR := $(LIB_DIR)/libft
-#ADD ADDITIONAL LIBRARIES HERE ^^^
-LIB_FLAG := -lft
-################################################################################
-#								COMPILER
-################################################################################
-CFLAGS := -Wall -Werror -Wextra
-#ADD ADDITIONAL FLAGS HERE ^^^
-CC := gcc $(CFLAGS)
-################################################################################
-#								RULES
+AUTHOR = cterblan
+OUTPUT = nm.exe
+
 ################################################################################
 
-all: $(NAME)
+INC_DIR = inc
+SRC_DIR = src
+OBJ_DIR = obj
+LIB_DIR = lib
 
-$(NAME): $(OBJ)
-	@make all -C $(LIBFT_DIR)/
-	@$(CC) -o $@ -I $(INC_DIR) -L $(LIBFT_DIR)/ $(LIB_FLAG) $(OBJ)
-	@#COMPILE EXECUTABLE ^^^^^
-	@#ar rcs $(NAME).a $(OBJ) $(LIBFT_DIR)/obj/*.o^
-	@#COMPILE LIBRARY ^^^^^^^
-	@echo "\033[32m\t\t[COMPILED SUCCESSFULLY] $@\033"
-	@#DON'T TOUCH ^^^
+###############################################################################
+
+SRC		:= nm.c
+OBJ		:= $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
+
+###############################################################################
+
+PRINTF_DIR = $(LIB_DIR)/ft_printf
+
+###############################################################################
+
+CFLAGS	:= -Wall -Werror -Wextra -D_XOPEN_SOURCE=500
+COMPILE	:= gcc $(CFLAGS)
+
+###############################################################################
+
+all: update $(OUTPUT)
+
+$(OUTPUT): $(OBJ)
+	make all -C $(PRINTF_DIR)
+	gcc -o $(OUTPUT) $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@echo "\033[36m\t\t[Building]\033[0m $@"
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) -I $(INC_DIR) -o $@ -c $<
-	@echo "\033[33m\t\t[SUCCESS]\033[0m"
-	@#DON'T TOUCH ^^^
+	#norminette $<
+	mkdir -p $(OBJ_DIR)
+	$(COMPILE) -I $(INC_DIR) -o $@ -c $<
 
-clean: cleanlib
-	@echo "\033[31m\t\t[CLEANING]\t$(OBJ_DIR)\033[0m"
-	@rm -rf $(OBJ_DIR)
-	@#DON'T TOUCH ^^^
+update:
+	git submodule update --init --recursive --remote
 
-cleanlib:
-	@echo "\033[31m\t\t[CLEANING]\t$(LIB_DIR)\033[0m"
-	@make clean -C $(LIBFT_DIR)
-	@#ADD ADDITIONAL LIBRARIES HERE ^^^
+clean: libclean
+	rm -rf $(OBJ_DIR)
 
-fclean: clean fcleanlib
-	@echo "\033[31m\t\t[FCLEAN]\t$(NAME)\033[0m"
-	@rm -f $(NAME)
-	@#ADD ADDITIONAL NAME FILES HERE ^^^
+libclean:
+	make clean -C $(PRINTF_DIR)
 
-fcleanlib:
-	@echo "\033[31m\t\t[FCLEAN]\t$(LIB_DIR)]\033[0m"
-	@make fclean -C $(LIBFT_DIR)
-	@#ADD ADDITIONAL LIBRARIES HERE ^^^
+fclean: clean libfclean
+	rm -f $(OUTPUT)
+
+libfclean:
+	make fclean -C $(PRINTF_DIR)
 
 re: fclean all
 
 workspace:
-	@echo "\033[36m\t\t[Building $@]\033[0m"
-	@mkdir -p $(INC_DIR)
-	@mkdir -p $(SRC_DIR)
-	@mkdir -p $(LIB_DIR)
-	@touch author
-	@echo $(AUTHOR) > author
-################################################################################
-#								SPECIAL
-################################################################################
+	mkdir -p $(INC_DIR)
+	mkdir -p $(SRC_DIR)
+	mkdir -p $(LIB_DIR)
+	mkdir -p resources
+	touch author
+	echo $(AUTHOR) > author
+
+###############################################################################
 
 .PHONEY := all clean fclean re workspace
-#ADD PHONEY HERE ^^^
 
 .SILENT:
-#DON'T TOUCH ^^^
 
 .PRECIOUS := author
-#ADD PRECIOUS HERE ^^^
