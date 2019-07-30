@@ -6,7 +6,7 @@
 #    By: cterblan <cterblan@student.wethinkcode>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/25 20:26:51 by cterblan          #+#    #+#              #
-#    Updated: 2019/07/26 00:18:09 by cterblan         ###   ########.fr        #
+#    Updated: 2019/07/30 23:41:10 by cterblan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,14 @@ RES_DIR = resources
 
 ###############################################################################
 
-SRC		:= ft_select\
-			show_help
+SRC		:= ft_select
 			
 OBJ		:= $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 ###############################################################################
 
 PRINTF_DIR = $(LIB_DIR)/ft_printf
+LIB_FLAGS = -lncurses
 
 ###############################################################################
 
@@ -41,11 +41,11 @@ COMPILE	:= gcc $(CFLAGS)
 
 ###############################################################################
 
-all: update $(OUTPUT)
+all: $(OUTPUT)
 
 $(OUTPUT): $(OBJ)
 	make all -C $(PRINTF_DIR)
-	gcc -o $(OUTPUT) $(OBJ) $(PRINTF_DIR)/obj/* $(PRINTF_DIR)/lib/libft/obj/*
+	gcc -o $(OUTPUT) $(OBJ) $(PRINTF_DIR)/obj/* $(PRINTF_DIR)/lib/libft/obj/* $(LIB_FLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	#norminette $<
@@ -53,7 +53,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(COMPILE) -I $(INC_DIR) -o $@ -c $<
 
 update:
-	git submodule update --init --recursive --remote
+	#git submodule update --init --recursive --remote
+	make all
 
 clean: libclean
 	rm -rf $(OBJ_DIR)

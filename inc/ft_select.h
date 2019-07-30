@@ -1,9 +1,9 @@
-#ifndef FT_SELECT_PRIVATE_H
-# define FT_SELECT_PRIVATE_H
+#ifndef FT_SELECT_H
+# define FT_SELECT_H
 
-# include "../lib/ft_printf/lib/libft/inc/libft.h"
-# include "../lib/ft_printf/inc/export_ft_printf.h"
+# include "./ft_select_includes.h"
 
 void		show_help(void);
+
 
 #endif

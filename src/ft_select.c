@@ -1,10 +1,15 @@
 #include "../inc/ft_select.h"
+# include <ncurses.h>
 
-int		main(int ac, char **av)
+int		main()
 {
-	if (ac < 2)
-		show_help();
-	else
-		ft_printf("%s", av[1]);
+	// show_help();
+	
+	initscr();
+	// raw();
+	cbreak();
+	printw("Hello World");
+	getch();
+	endwin();
 	return (0);
 }
