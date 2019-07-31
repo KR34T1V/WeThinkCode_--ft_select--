@@ -1,0 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    references.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cterblan <cterblan@student.wethinkcode>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/31 20:49:03 by cterblan          #+#    #+#              #
+#    Updated: 2019/07/31 20:52:11 by cterblan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+https://cygwin.com/ml/cygwin/2004-04/msg01158.html
+https://www.daemon-systems.org/man/terminfo.5.html
+https://en.wikibooks.org/wiki/Serial_Programming/termios

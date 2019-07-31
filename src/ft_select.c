@@ -1,15 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cterblan <cterblan@student.wethinkcode>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/31 20:49:35 by cterblan          #+#    #+#             */
+/*   Updated: 2019/07/31 20:52:04 by cterblan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/ft_select.h"
-# include <ncurses.h>
 
 int		main()
 {
-	// show_help();
 	
-	initscr();
-	// raw();
-	cbreak();
-	printw("Hello World");
-	getch();
-	endwin();
 	return (0);
 }
