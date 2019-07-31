@@ -25,9 +25,9 @@ RES_DIR = resources
 
 ###############################################################################
 
-SRC		:= ft_select
+SRC		:= ft_select.c
 			
-OBJ		:= $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
+OBJ		:= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 
 ###############################################################################
 
@@ -43,6 +43,7 @@ COMPILE	:= gcc $(CFLAGS)
 
 all: $(OUTPUT)
 
+
 $(OUTPUT): $(OBJ)
 	make all -C $(PRINTF_DIR)
 	gcc -o $(OUTPUT) $(OBJ) $(PRINTF_DIR)/obj/* $(PRINTF_DIR)/lib/libft/obj/* $(LIB_FLAGS)
@@ -50,7 +51,7 @@ $(OUTPUT): $(OBJ)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	#norminette $<
 	mkdir -p $(OBJ_DIR)
-	$(COMPILE) -I $(INC_DIR) -o $@ -c $<
+	gcc -c $(CFLAGS) -I $(INC_DIR) -o $@ $<
 
 update:
 	#git submodule update --init --recursive --remote
